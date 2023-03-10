@@ -22,6 +22,10 @@ export const isReferencePath = (path: string) => {
   return Utilities.pathStartsWith('versions', path);
 };
 
+export const isHomePath = (path: string) => {
+  return navigation.homeDirectories.some(name => Utilities.pathStartsWith(name, path));
+};
+
 export const isGeneralPath = (path: string) => {
   return navigation.generalDirectories.some(name => Utilities.pathStartsWith(name, path));
 };
@@ -38,6 +42,10 @@ export const isEasPath = (path: string) => {
   return navigation.easDirectories.some(name => Utilities.pathStartsWith(name, path));
 };
 
+export const isLearnPath = (path: string) => {
+  return navigation.learnDirectories.some(name => Utilities.pathStartsWith(name, path));
+};
+
 export const getPageSection = (path: string) => {
   if (isReferencePath(path)) {
     return 'reference';
@@ -51,7 +59,11 @@ export const getPageSection = (path: string) => {
     return 'preview';
   } else if (isArchivePath(path)) {
     return 'archive';
+  } else if (isLearnPath(path)) {
+    return 'learn';
+  } else if (isHomePath(path)) {
+    return 'home';
   }
 
-  return 'general';
+  return 'home';
 };

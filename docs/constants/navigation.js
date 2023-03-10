@@ -11,8 +11,12 @@ const PAGES_DIR = path.resolve(dirname, '../pages');
 
 // TODO(cedric): refactor docs to get rid of the directory lists
 
+/** Manual list of directories to categorize as "Home" */
+const homeDirectories = ['home'];
 /** Manual list of directories to categorize as "EAS content" */
 const easDirectories = ['eas', 'build', 'app-signing', 'build-reference', 'submit', 'eas-update'];
+/** Manual list of directories to categorize as "Learn" */
+const learnDirectories = ['tutorial', 'ui-programming', 'additional-resources'];
 /** Manual list of directories to categorize as "Archive" */
 const archiveDirectories = ['archive'];
 /** Private preview section which isn't linked in the documentation */
@@ -26,13 +30,19 @@ const generalDirectories = fs
     name =>
       name !== 'api' &&
       name !== 'versions' &&
-      ![...previewDirectories, ...easDirectories, ...archiveDirectories].includes(name)
+      ![
+        ...previewDirectories,
+        ...easDirectories,
+        ...archiveDirectories,
+        ...homeDirectories,
+        ...learnDirectories,
+      ].includes(name)
   );
 
 // --- Navigation ---
 
-const general = [
-  makeSection('', [makePage('home')]),
+const home = [
+  makeSection('', [makePage('home/overview.mdx')]),
   makeSection(
     'Get started',
     [
@@ -42,47 +52,37 @@ const general = [
     ],
     { expanded: true }
   ),
+  makeSection('Develop', [
+    makePage('home/develop/project-structure.mdx'),
+    makeGroup(
+      'User interface',
+      [
+        makePage('home/develop/user-interface/splash-screen.mdx'),
+        makePage('home/develop/user-interface/app-icons.mdx'),
+        makePage('home/develop/user-interface/safe-areas.mdx'),
+        makePage('home/develop/user-interface/fonts.mdx'),
+        makePage('home/develop/user-interface/color-themes.mdx'),
+        makePage('home/develop/user-interface/animation.mdx'),
+        makePage('home/develop/user-interface/storing-data.mdx'),
+      ],
+      { expanded: true }
+    ),
+    makeGroup(
+      'Development builds',
+      [
+        makePage('home/develop/development-builds/overview.mdx'),
+        makePage('home/develop/development-builds/installation.mdx'),
+        makePage('home/develop/development-builds/create-a-build.mdx'),
+      ],
+      { expanded: true }
+    ),
+  ]),
+];
+
+const general = [
   makeSection(
     'Develop',
     [
-      makePage('home/develop/project-structure.mdx'),
-      makeGroup(
-        'User interface',
-        [
-          makePage('home/develop/user-interface/splash-screen.mdx'),
-          makePage('home/develop/user-interface/app-icons.mdx'),
-          makePage('home/develop/user-interface/safe-areas.mdx'),
-          makePage('home/develop/user-interface/fonts.mdx'),
-          makePage('home/develop/user-interface/color-themes.mdx'),
-          makePage('home/develop/user-interface/animation.mdx'),
-          makePage('home/develop/user-interface/storing-data.mdx'),
-        ],
-        { expanded: true }
-      ),
-      makeGroup(
-        'Development builds',
-        [
-          makePage('home/develop/development-builds/overview.mdx'),
-          makePage('home/develop/development-builds/installation.mdx'),
-          makePage('home/develop/development-builds/create-a-build.mdx'),
-        ],
-        { expanded: true }
-      ),
-      makeGroup(
-        'Tutorial',
-        [
-          makePage('tutorial/create-your-first-app.mdx'),
-          makePage('tutorial/build-a-screen.mdx'),
-          makePage('tutorial/image-picker.mdx'),
-          makePage('tutorial/create-a-modal.mdx'),
-          makePage('tutorial/gestures.mdx'),
-          makePage('tutorial/screenshot.mdx'),
-          makePage('tutorial/platform-differences.mdx'),
-          makePage('tutorial/configuration.mdx'),
-          makePage('tutorial/follow-up.mdx'),
-        ],
-        { expanded: true }
-      ),
       makePage('introduction/expo.mdx'),
       makePage('introduction/managed-vs-bare.mdx'),
       makeGroup(
@@ -91,7 +91,6 @@ const general = [
         { expanded: true }
       ),
       makePage('next-steps/community.mdx'),
-      makePage('next-steps/additional-resources.mdx'),
     ],
     { expanded: true }
   ),
@@ -203,15 +202,6 @@ const general = [
     makePage('push-notifications/sending-notifications-custom.mdx'),
     makePage('push-notifications/faq.mdx'),
   ]),
-  makeSection('UI programming', [
-    makePage('ui-programming/image-background.mdx'),
-    makePage('ui-programming/implementing-a-checkbox.mdx'),
-    makePage('ui-programming/z-index.mdx'),
-    makePage('ui-programming/using-svgs.mdx'),
-    makePage('ui-programming/react-native-toast.mdx'),
-    makePage('ui-programming/react-native-styling-buttons.mdx'),
-    makePage('guides/userinterface.mdx'),
-  ]),
   makeSection('Regulatory compliance', sortAlphabetical(pagesFromDir('regulatory-compliance')), {}),
   makeSection('Technical specs', [
     makePage('technical-specs/expo-updates-0.mdx'),
@@ -319,6 +309,38 @@ const eas = [
   ),
 ];
 
+const learn = [
+  makeSection(
+    'Get Started',
+    [
+      makePage('tutorial/create-your-first-app.mdx'),
+      makePage('tutorial/build-a-screen.mdx'),
+      makePage('tutorial/image-picker.mdx'),
+      makePage('tutorial/create-a-modal.mdx'),
+      makePage('tutorial/gestures.mdx'),
+      makePage('tutorial/screenshot.mdx'),
+      makePage('tutorial/platform-differences.mdx'),
+      makePage('tutorial/configuration.mdx'),
+      makePage('tutorial/follow-up.mdx'),
+    ],
+    { expanded: true }
+  ),
+  makeSection(
+    'UI programming',
+    [
+      makePage('ui-programming/image-background.mdx'),
+      makePage('ui-programming/implementing-a-checkbox.mdx'),
+      makePage('ui-programming/z-index.mdx'),
+      makePage('ui-programming/using-svgs.mdx'),
+      makePage('ui-programming/react-native-toast.mdx'),
+      makePage('ui-programming/react-native-styling-buttons.mdx'),
+      makePage('guides/userinterface.mdx'),
+    ],
+    { expanded: true }
+  ),
+  makeSection('More', [makePage('additional-resources/index.mdx')]),
+];
+
 const preview = [
   makeSection('Preview', [
     makePage('preview/introduction.mdx'),
@@ -391,8 +413,10 @@ const versionsReference = VERSIONS.reduce(
 const reference = { ...versionsReference, latest: versionsReference[LATEST_VERSION] };
 
 export default {
+  home,
   general,
   eas,
+  learn,
   preview,
   archive,
   featurePreview,
@@ -401,6 +425,8 @@ export default {
   previewDirectories,
   easDirectories,
   archiveDirectories,
+  homeDirectories,
+  learnDirectories,
 };
 
 // --- MDX methods ---

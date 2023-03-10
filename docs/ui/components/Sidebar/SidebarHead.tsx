@@ -1,7 +1,13 @@
 import { css } from '@emotion/react';
 import { theme, DocsLogo } from '@expo/styleguide';
 import { spacing } from '@expo/styleguide-base';
-import { ArrowLeftIcon, BookOpen02Icon, PlanEnterpriseIcon } from '@expo/styleguide-icons';
+import {
+  ArrowLeftIcon,
+  BookOpen02Icon,
+  PlanEnterpriseIcon,
+  Home02Icon,
+  GraduationHat02Icon,
+} from '@expo/styleguide-icons';
 
 import { PreviewIcon, PreviewInactiveIcon } from './icons/Preview';
 
@@ -31,6 +37,12 @@ export const SidebarHead = ({ sidebarActiveGroup }: SidebarHeadProps) => {
       <Search />
       <SidebarSingleEntry
         href="/"
+        title="Home"
+        Icon={Home02Icon}
+        isActive={sidebarActiveGroup === 'home'}
+      />
+      <SidebarSingleEntry
+        href="/introduction/expo"
         title="Guides"
         Icon={BookOpen02Icon}
         isActive={sidebarActiveGroup === 'general'}
@@ -46,6 +58,12 @@ export const SidebarHead = ({ sidebarActiveGroup }: SidebarHeadProps) => {
         title="API Reference"
         Icon={DocsLogo}
         isActive={sidebarActiveGroup === 'reference'}
+      />
+      <SidebarSingleEntry
+        href="/tutorial/create-your-first-app/"
+        title="Learn"
+        Icon={GraduationHat02Icon}
+        isActive={sidebarActiveGroup === 'learn'}
       />
       {shouldShowFeaturePreviewLink() && (
         <SidebarSingleEntry

@@ -134,7 +134,6 @@ function endsInNull(path: string) {
 // for reasons I'm not totally clear on, those redirects do not work
 const RENAMED_PAGES: Record<string, string> = {
   '/introduction/project-lifecycle/': '/introduction/managed-vs-bare/',
-  '/guides/': '/workflow/exploring-managed-workflow/',
   '/versions/latest/sdk/': '/versions/latest/',
   '/versions/latest/sdk/overview/': '/versions/latest/',
   '/guides/building-standalone-apps/': '/archive/classic-updates/building-standalone-apps/',
@@ -266,7 +265,7 @@ const RENAMED_PAGES: Record<string, string> = {
 
   // Deleted or removed guides
   '/guides/setup-native-firebase/': '/guides/using-firebase/',
-  '/guides/using-clojurescript/': '/',
+  '/guides/using-clojurescript/': '/guides/',
 
   // Redirects from old to new tutorial
   '/tutorial/planning/': '/tutorial/introduction/',

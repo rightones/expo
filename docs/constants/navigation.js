@@ -70,7 +70,7 @@ const home = [
     makeGroup(
       'Development builds',
       [
-        makePage('home/develop/development-builds/overview.mdx'),
+        makePage('home/develop/development-builds/introduction.mdx'),
         makePage('home/develop/development-builds/installation.mdx'),
         makePage('home/develop/development-builds/config-plugins.mdx'),
         makePage('home/develop/development-builds/create-a-build.mdx'),

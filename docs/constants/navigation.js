@@ -82,7 +82,8 @@ const home = [
     ),
     makePage('home/authentication.mdx'),
     makePage('home/unit-testing.mdx'),
-    makePage('home/errors-and-debugging.mdx'),
+    makePage('home/errors-and-warnings.mdx'),
+    makePage('home/debugging.mdx'),
   ]),
   makeSection('Deploy', [
     makePage('home/deploy/build-your-project.mdx'),

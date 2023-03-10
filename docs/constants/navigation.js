@@ -72,11 +72,27 @@ const home = [
       [
         makePage('home/develop/development-builds/overview.mdx'),
         makePage('home/develop/development-builds/installation.mdx'),
+        makePage('home/develop/development-builds/config-plugins.mdx'),
         makePage('home/develop/development-builds/create-a-build.mdx'),
+        makePage('home/develop/development-builds/share-with-your-team.mdx'),
+        makePage('home/develop/development-builds/parallel-installation.mdx'),
+        makePage('home/develop/development-builds/next-steps.mdx'),
       ],
       { expanded: true }
     ),
+    makePage('home/authentication.mdx'),
+    makePage('home/unit-testing.mdx'),
+    makePage('home/errors-and-debugging.mdx'),
   ]),
+  makeSection('Deploy', [
+    makePage('home/deploy/build-your-project.mdx'),
+    makePage('home/deploy/submit-to-app-stores.mdx'),
+    makePage('home/deploy/app-stores-metadata.mdx'),
+    makePage('home/deploy/instant-updates.mdx'),
+    makePage('home/deploy/app-stores-metadata.mdx'),
+    makePage('home/deploy/monitor.mdx'),
+  ]),
+  makeSection('More', [makePage('home/concepts.mdx'), makePage('home/faq.mdx')]),
 ];
 
 const general = [

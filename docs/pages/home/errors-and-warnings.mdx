@@ -1,11 +1,13 @@
 ---
 title: Errors and warnings
-description: Learn how to debug errors and warnings in your Expo or React Native app.
+description: Learn about what redbox errors and stack traces in your Expo project.
 ---
 
 import ImageSpotlight from '~/components/plugins/ImageSpotlight';
 
 When developing an application using Expo, you'll encounter a **Redbox** error or **Yellowbox** warning. These logging experiences are provided by [LogBox in React Native](https://reactnative.dev/blog/2020/07/06/version-0.63).
+
+## Redbox error and Yellowbox warning
 
 A Redbox error is displayed when a fatal error prevents your app from running. A Yellowbox warning is displayed to inform you that there is a possible issue and you should probably resolve it before shipping your app.
 
@@ -13,9 +15,9 @@ You can also create warnings and errors on your own with `console.warn("Warning 
 
 > This is a brief introduction to debugging a React Native app with Expo CLI. For in-depth information, see [Debugging](/workflow/debugging).
 
-## Redbox errors and stack traces
+## Stack traces
 
-When you encounter an error during development, you'll see the error message and a **stack trace**, which is a report of the recent calls your application made when it crashed. This stack trace is shown both in your terminal and the Expo Go app.
+When you encounter an error during development, you'll see the error message and a **stack trace**, which is a report of the recent calls your application made when it crashed. This stack trace is shown both in your terminal and the Expo Go app or if you've created a development build.
 
 This stack trace is **extremely valuable** since it gives you the location of the error's occurrence. For example, in the following image, the error comes from the file **HomeScreen.js** and is caused on line 7 in that file.
 

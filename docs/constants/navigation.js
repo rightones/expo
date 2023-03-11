@@ -63,7 +63,7 @@ const home = [
         makePage('home/develop/user-interface/fonts.mdx'),
         makePage('home/develop/user-interface/color-themes.mdx'),
         makePage('home/develop/user-interface/animation.mdx'),
-        makePage('home/develop/user-interface/storing-data.mdx'),
+        makePage('home/develop/user-interface/store-data.mdx'),
       ],
       { expanded: true }
     ),

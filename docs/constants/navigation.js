@@ -367,34 +367,28 @@ const preview = [
 ];
 
 const archive = [
-  makeGroup('Archive', [makePage('archive/index.mdx')]),
-  makeSection(
-    'Classic Updates',
-    [
-      makeGroup('Classic Updates', [makePage('archive/classic-updates/introduction.mdx')]),
-      makeGroup('Guides', [
-        makePage('archive/classic-updates/configuring-updates.mdx'),
-        makePage('archive/classic-updates/preloading-and-caching-assets.mdx'),
-      ]),
-      makeGroup('Distribution', [
-        makePage('archive/classic-updates/release-channels.mdx'),
-        makePage('archive/classic-updates/advanced-release-channels.mdx'),
-        makePage('archive/classic-updates/hosting-your-app.mdx'),
-        makePage('archive/classic-updates/offline-support.mdx'),
-        makePage('archive/classic-updates/optimizing-updates.mdx'),
-      ]),
-      makeGroup('Workflow', [makePage('archive/classic-updates/publishing.mdx')]),
-      makeGroup('Bare Workflow', [makePage('archive/classic-updates/updating-your-app.mdx')]),
-      makeGroup('Classic Services', [
-        makePage('archive/classic-updates/building-standalone-apps.mdx'),
-        makePage('archive/classic-updates/turtle-cli.mdx'),
-      ]),
-    ],
-    {
-      expanded: true,
-    }
-  ),
-  makeGroup('More', [
+  makeSection('Archive', [makePage('archive/index.mdx')]),
+  makeSection('Classic Builds', [
+    makePage('archive/classic-updates/building-standalone-apps.mdx'),
+    makePage('archive/classic-updates/turtle-cli.mdx'),
+  ]),
+  makeSection('Classic Updates', [
+    makePage('archive/classic-updates/introduction.mdx'),
+    makeSection('Guides', [
+      makePage('archive/classic-updates/configuring-updates.mdx'),
+      makePage('archive/classic-updates/preloading-and-caching-assets.mdx'),
+    ]),
+    makeSection('Distribution', [
+      makePage('archive/classic-updates/release-channels.mdx'),
+      makePage('archive/classic-updates/advanced-release-channels.mdx'),
+      makePage('archive/classic-updates/hosting-your-app.mdx'),
+      makePage('archive/classic-updates/offline-support.mdx'),
+      makePage('archive/classic-updates/optimizing-updates.mdx'),
+    ]),
+    makeSection('Workflow', [makePage('archive/classic-updates/publishing.mdx')]),
+    makeSection('Bare Workflow', [makePage('archive/classic-updates/updating-your-app.mdx')]),
+  ]),
+  makeSection('More', [
     makePage('archive/adhoc-builds.mdx'),
     makePage('archive/expo-cli.mdx'),
     makePage('archive/notification-channels.mdx'),

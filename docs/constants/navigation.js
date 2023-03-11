@@ -368,12 +368,6 @@ const preview = [
 
 const archive = [
   makeGroup('Archive', [makePage('archive/index.mdx')]),
-  makeGroup('Miscellaneous', [
-    makePage('archive/adhoc-builds.mdx'),
-    makePage('archive/expo-cli.mdx'),
-    makePage('archive/notification-channels.mdx'),
-    makePage('archive/glossary.mdx'),
-  ]),
   makeSection(
     'Classic Updates',
     [
@@ -400,6 +394,12 @@ const archive = [
       expanded: true,
     }
   ),
+  makeGroup('More', [
+    makePage('archive/adhoc-builds.mdx'),
+    makePage('archive/expo-cli.mdx'),
+    makePage('archive/notification-channels.mdx'),
+    makePage('archive/glossary.mdx'),
+  ]),
 ];
 
 const featurePreview = [];

@@ -90,10 +90,9 @@ const home = [
     makePage('home/deploy/submit-to-app-stores.mdx'),
     makePage('home/deploy/app-stores-metadata.mdx'),
     makePage('home/deploy/instant-updates.mdx'),
-    makePage('home/deploy/app-stores-metadata.mdx'),
     makePage('home/deploy/monitor.mdx'),
   ]),
-  makeSection('More', [makePage('home/concepts.mdx'), makePage('home/faq.mdx')]),
+  makeSection('More', [makePage('home/core-concepts.mdx'), makePage('home/faq.mdx')]),
 ];
 
 const general = [

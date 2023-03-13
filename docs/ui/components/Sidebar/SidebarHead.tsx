@@ -4,12 +4,10 @@ import { spacing } from '@expo/styleguide-base';
 import {
   ArrowLeftIcon,
   BookOpen02Icon,
-  PlanEnterpriseIcon,
   Home02Icon,
   GraduationHat02Icon,
+  Stars02Icon,
 } from '@expo/styleguide-icons';
-
-import { PreviewIcon, PreviewInactiveIcon } from './icons/Preview';
 
 import { shouldShowFeaturePreviewLink } from '~/constants/FeatureFlags.cjs';
 import { Search } from '~/ui/components/Search';
@@ -48,14 +46,8 @@ export const SidebarHead = ({ sidebarActiveGroup }: SidebarHeadProps) => {
         isActive={sidebarActiveGroup === 'general'}
       />
       <SidebarSingleEntry
-        href="/eas"
-        title="Expo Application Services"
-        Icon={PlanEnterpriseIcon}
-        isActive={sidebarActiveGroup === 'eas'}
-      />
-      <SidebarSingleEntry
         href="/versions/latest"
-        title="API Reference"
+        title="Reference"
         Icon={DocsLogo}
         isActive={sidebarActiveGroup === 'reference'}
       />
@@ -69,11 +61,7 @@ export const SidebarHead = ({ sidebarActiveGroup }: SidebarHeadProps) => {
         <SidebarSingleEntry
           href="/feature-preview"
           title="Feature Preview"
-          Icon={
-            sidebarActiveGroup === 'featurePreview' || sidebarActiveGroup === 'preview'
-              ? PreviewIcon
-              : PreviewInactiveIcon
-          }
+          Icon={Stars02Icon}
           isActive={sidebarActiveGroup === 'featurePreview' || sidebarActiveGroup === 'preview'}
         />
       )}

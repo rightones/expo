@@ -4,7 +4,7 @@ import path from 'path';
 import { u as make } from 'unist-builder';
 import { URL, fileURLToPath } from 'url';
 
-import { LATEST_VERSION, VERSIONS } from './versions.js';
+import { VERSIONS } from './versions.js';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 const PAGES_DIR = path.resolve(dirname, '../pages');
@@ -13,14 +13,14 @@ const PAGES_DIR = path.resolve(dirname, '../pages');
 
 /** Manual list of directories to categorize as "Home" */
 const homeDirectories = ['home'];
-/** Manual list of directories to categorize as "EAS content" */
-const easDirectories = ['eas', 'build', 'app-signing', 'build-reference', 'submit', 'eas-update'];
 /** Manual list of directories to categorize as "Learn" */
 const learnDirectories = ['tutorial', 'ui-programming', 'additional-resources'];
 /** Manual list of directories to categorize as "Archive" */
 const archiveDirectories = ['archive'];
+/** Manual list of directories to categorize as "Reference" */
+const referenceDirectories = ['versions', 'modules', 'technical-specs'];
 /** Private preview section which isn't linked in the documentation */
-const previewDirectories = ['preview'];
+const previewDirectories = ['feature-preview', 'preview'];
 /** All other unlisted directories */
 const generalDirectories = fs
   .readdirSync(PAGES_DIR, { withFileTypes: true })
@@ -31,11 +31,11 @@ const generalDirectories = fs
       name !== 'api' &&
       name !== 'versions' &&
       ![
-        ...previewDirectories,
-        ...easDirectories,
-        ...archiveDirectories,
         ...homeDirectories,
+        ...archiveDirectories,
+        ...referenceDirectories,
         ...learnDirectories,
+        ...previewDirectories,
       ].includes(name)
   );
 
@@ -101,12 +101,142 @@ const general = [
     [
       makePage('introduction/expo.mdx'),
       makePage('introduction/managed-vs-bare.mdx'),
-      makeGroup(
-        'Conceptual overview',
-        [makePage('introduction/why-not-expo.mdx'), makePage('introduction/faq.mdx')],
-        { expanded: true }
-      ),
       makePage('next-steps/community.mdx'),
+    ],
+    { expanded: true }
+  ),
+  makeSection('EAS Build', [
+    makeGroup(
+      'Start Building',
+      [
+        makePage('build/introduction.mdx'),
+        makePage('build/setup.mdx'),
+        makePage('build/eas-json.mdx'),
+        makePage('build/internal-distribution.mdx'),
+        makePage('build/automating-submissions.mdx'),
+        makePage('build/updates.mdx'),
+        makePage('build/building-on-ci.mdx'),
+      ],
+      { expanded: true }
+    ),
+    makeGroup(
+      'App Signing',
+      [
+        makePage('app-signing/app-credentials.mdx'),
+        makePage('app-signing/managed-credentials.mdx'),
+        makePage('app-signing/local-credentials.mdx'),
+        makePage('app-signing/existing-credentials.mdx'),
+        makePage('app-signing/syncing-credentials.mdx'),
+        makePage('app-signing/security.mdx'),
+      ],
+      { expanded: true }
+    ),
+    makeGroup(
+      'Reference',
+      [
+        makePage('build-reference/eas-json.mdx'),
+        makePage('build-reference/migrating.mdx'),
+        makePage('build-reference/npm-hooks.mdx'),
+        makePage('build-reference/private-npm-packages.mdx'),
+        makePage('build-reference/git-submodules.mdx'),
+        makePage('build-reference/npm-cache-with-yarn.mdx'),
+        makePage('build-reference/build-with-monorepos.mdx'),
+        makePage('build-reference/variables.mdx'),
+        makePage('build-reference/apk.mdx'),
+        makePage('build-reference/simulators.mdx'),
+        makePage('build-reference/app-versions.mdx'),
+        makePage('build-reference/troubleshooting.mdx'),
+        makePage('build-reference/variants.mdx'),
+        makePage('build-reference/ios-capabilities.mdx'),
+        makePage('build-reference/local-builds.mdx'),
+        makePage('build-reference/caching.mdx'),
+        makePage('build-reference/android-builds.mdx'),
+        makePage('build-reference/ios-builds.mdx'),
+        makePage('build-reference/build-configuration.mdx'),
+        makePage('build-reference/infrastructure.mdx'),
+        makePage('build-reference/app-extensions.mdx'),
+        makePage('build-reference/e2e-tests.mdx'),
+        makePage('build-reference/limitations.mdx'),
+      ],
+      { expanded: true }
+    ),
+  ]),
+  makeSection('EAS Submit', [
+    makePage('submit/introduction.mdx'),
+    makePage('submit/eas-json.mdx'),
+    makePage('submit/android.mdx'),
+    makePage('submit/ios.mdx'),
+  ]),
+  makeSection('EAS Update', [
+    makePage('eas-update/introduction.mdx'),
+    makePage('eas-update/getting-started.mdx'),
+    makePage('eas-update/github-actions.mdx'),
+    makePage('eas-update/developing-with-eas-update.mdx'),
+    makePage('eas-update/how-eas-update-works.mdx'),
+    makePage('eas-update/deployment-patterns.mdx'),
+    makePage('eas-update/debug-updates.mdx'),
+    makePage('eas-update/eas-update-with-local-build.mdx'),
+    makePage('eas-update/eas-update-and-eas-cli.mdx'),
+    makePage('eas-update/optimize-assets.mdx'),
+    makePage('eas-update/runtime-versions.mdx'),
+    makePage('eas-update/environment-variables.mdx'),
+    makePage('eas-update/expo-dev-client.mdx'),
+    makePage('eas-update/code-signing.mdx'),
+    makeGroup('More', [
+      makePage('eas-update/migrate-to-eas-update.mdx'),
+      makePage('eas-update/rollouts.mdx'),
+      makePage('eas-update/faq.mdx'),
+      makePage('eas-update/known-issues.mdx'),
+    ]),
+  ]),
+  makeSection('EAS Metadata', [
+    makePage('eas/metadata/index.mdx'),
+    makePage('eas/metadata/getting-started.mdx'),
+    makePage('eas/metadata/config.mdx'),
+    makePage('eas/metadata/schema.mdx'),
+    makePage('eas/metadata/faq.mdx'),
+  ]),
+  makeSection('Push notifications', [
+    makePage('push-notifications/overview.mdx'),
+    makePage('push-notifications/push-notifications-setup.mdx'),
+    makePage('push-notifications/sending-notifications.mdx'),
+    makePage('push-notifications/receiving-notifications.mdx'),
+    makePage('push-notifications/sending-notifications-custom.mdx'),
+    makePage('push-notifications/faq.mdx'),
+  ]),
+  makeSection(
+    'More',
+    [
+      makePage('eas/webhooks.mdx'),
+      makePage('introduction/why-not-expo.mdx'),
+      makePage('introduction/faq.mdx'),
+      makeSection('Integrations', [
+        makePage('guides/using-firebase.mdx'),
+        makePage('guides/using-sentry.mdx'),
+        makePage('guides/using-bugsnag.mdx'),
+        makePage('guides/using-graphql.mdx'),
+        makePage('guides/using-styled-components.mdx'),
+        makePage('guides/using-nextjs.mdx'),
+        makePage('guides/typescript.mdx'),
+        makePage('guides/using-flipper.mdx'),
+        makePage('guides/using-analytics.mdx'),
+        makePage('guides/facebook-authentication.mdx'),
+        makePage('guides/google-authentication.mdx'),
+      ]),
+      makeSection('Expo accounts', [
+        makePage('accounts/account-types.mdx'),
+        makePage('accounts/two-factor.mdx'),
+        makePage('accounts/programmatic-access.mdx'),
+        makePage('accounts/working-together.mdx'),
+      ]),
+      makeSection('Bare React Native', [
+        makePage('bare/hello-world.mdx'),
+        makePage('bare/installing-expo-modules.mdx'),
+        makePage('bare/installing-updates.mdx'),
+        makePage('bare/using-expo-client.mdx'),
+        makePage('bare/updating-your-app.mdx'),
+        makePage('bare/error-recovery.mdx'),
+      ]),
     ],
     { expanded: true }
   ),
@@ -145,32 +275,6 @@ const general = [
     makePage('development/installation.mdx'),
     makePage('development/development-workflows.mdx'),
   ]),
-  makeSection('Expo Modules API', [
-    makePage('modules/overview.mdx'),
-    makePage('modules/get-started.mdx'),
-    makePage('modules/native-module-tutorial.mdx'),
-    makePage('modules/native-view-tutorial.mdx'),
-    makePage('modules/config-plugin-and-native-module-tutorial.mdx'),
-    makePage('modules/existing-library.mdx'),
-    makePage('modules/module-api.mdx'),
-    makePage('modules/android-lifecycle-listeners.mdx'),
-    makePage('modules/appdelegate-subscribers.mdx'),
-    makePage('modules/autolinking.mdx'),
-    makePage('modules/module-config.mdx'),
-  ]),
-  makeSection('Integrations', [
-    makePage('guides/using-firebase.mdx'),
-    makePage('guides/using-sentry.mdx'),
-    makePage('guides/using-bugsnag.mdx'),
-    makePage('guides/using-graphql.mdx'),
-    makePage('guides/using-styled-components.mdx'),
-    makePage('guides/using-nextjs.mdx'),
-    makePage('guides/typescript.mdx'),
-    makePage('guides/using-flipper.mdx'),
-    makePage('guides/using-analytics.mdx'),
-    makePage('guides/facebook-authentication.mdx'),
-    makePage('guides/google-authentication.mdx'),
-  ]),
   makeSection('Assorted guides', [
     makePage('guides/routing-and-navigation.mdx'),
     makePage('guides/permissions.mdx'),
@@ -196,133 +300,7 @@ const general = [
     makePage('guides/localization.mdx'),
     makePage('guides/configuring-js-engines.mdx'),
   ]),
-  makeSection('Expo accounts', [
-    makePage('accounts/account-types.mdx'),
-    makePage('accounts/two-factor.mdx'),
-    makePage('accounts/programmatic-access.mdx'),
-    makePage('accounts/working-together.mdx'),
-  ]),
-  makeSection('Bare workflow', [
-    makePage('bare/hello-world.mdx'),
-    makePage('bare/installing-expo-modules.mdx'),
-    makePage('bare/installing-updates.mdx'),
-    makePage('bare/using-expo-client.mdx'),
-    makePage('bare/updating-your-app.mdx'),
-    makePage('bare/error-recovery.mdx'),
-  ]),
-  makeSection('Push notifications', [
-    makePage('push-notifications/overview.mdx'),
-    makePage('push-notifications/push-notifications-setup.mdx'),
-    makePage('push-notifications/sending-notifications.mdx'),
-    makePage('push-notifications/receiving-notifications.mdx'),
-    makePage('push-notifications/sending-notifications-custom.mdx'),
-    makePage('push-notifications/faq.mdx'),
-  ]),
   makeSection('Regulatory compliance', sortAlphabetical(pagesFromDir('regulatory-compliance')), {}),
-  makeSection('Technical specs', [
-    makePage('technical-specs/expo-updates-0.mdx'),
-    makePage('technical-specs/expo-updates-1-draft.mdx'),
-    makePage('technical-specs/expo-sfv-0.mdx'),
-  ]),
-];
-
-const eas = [
-  makeSection('EAS', [makePage('eas/index.mdx'), makePage('eas/webhooks.mdx')], { expanded: true }),
-  makeSection(
-    'EAS Build',
-    [
-      makeGroup('Start Building', [
-        makePage('build/introduction.mdx'),
-        makePage('build/setup.mdx'),
-        makePage('build/eas-json.mdx'),
-        makePage('build/internal-distribution.mdx'),
-        makePage('build/automating-submissions.mdx'),
-        makePage('build/updates.mdx'),
-        makePage('build/building-on-ci.mdx'),
-      ]),
-      makeGroup('App Signing', [
-        makePage('app-signing/app-credentials.mdx'),
-        makePage('app-signing/managed-credentials.mdx'),
-        makePage('app-signing/local-credentials.mdx'),
-        makePage('app-signing/existing-credentials.mdx'),
-        makePage('app-signing/syncing-credentials.mdx'),
-        makePage('app-signing/security.mdx'),
-      ]),
-      makeGroup('Reference', [
-        makePage('build-reference/eas-json.mdx'),
-        makePage('build-reference/migrating.mdx'),
-        makePage('build-reference/npm-hooks.mdx'),
-        makePage('build-reference/private-npm-packages.mdx'),
-        makePage('build-reference/git-submodules.mdx'),
-        makePage('build-reference/npm-cache-with-yarn.mdx'),
-        makePage('build-reference/build-with-monorepos.mdx'),
-        makePage('build-reference/variables.mdx'),
-        makePage('build-reference/apk.mdx'),
-        makePage('build-reference/simulators.mdx'),
-        makePage('build-reference/app-versions.mdx'),
-        makePage('build-reference/troubleshooting.mdx'),
-        makePage('build-reference/variants.mdx'),
-        makePage('build-reference/ios-capabilities.mdx'),
-        makePage('build-reference/local-builds.mdx'),
-        makePage('build-reference/caching.mdx'),
-        makePage('build-reference/android-builds.mdx'),
-        makePage('build-reference/ios-builds.mdx'),
-        makePage('build-reference/build-configuration.mdx'),
-        makePage('build-reference/infrastructure.mdx'),
-        makePage('build-reference/app-extensions.mdx'),
-        makePage('build-reference/e2e-tests.mdx'),
-        makePage('build-reference/limitations.mdx'),
-      ]),
-    ],
-    { expanded: true }
-  ),
-  makeSection(
-    'EAS Submit',
-    [
-      makePage('submit/introduction.mdx'),
-      makePage('submit/eas-json.mdx'),
-      makePage('submit/android.mdx'),
-      makePage('submit/ios.mdx'),
-    ],
-    { expanded: true }
-  ),
-  makeSection(
-    'EAS Update',
-    [
-      makeGroup('EAS Update', [
-        makePage('eas-update/introduction.mdx'),
-        makePage('eas-update/getting-started.mdx'),
-        makePage('eas-update/github-actions.mdx'),
-        makePage('eas-update/developing-with-eas-update.mdx'),
-        makePage('eas-update/how-eas-update-works.mdx'),
-        makePage('eas-update/deployment-patterns.mdx'),
-        makePage('eas-update/debug-updates.mdx'),
-        makePage('eas-update/eas-update-with-local-build.mdx'),
-        makePage('eas-update/eas-update-and-eas-cli.mdx'),
-        makePage('eas-update/optimize-assets.mdx'),
-        makePage('eas-update/migrate-to-eas-update.mdx'),
-        makePage('eas-update/runtime-versions.mdx'),
-        makePage('eas-update/environment-variables.mdx'),
-        makePage('eas-update/expo-dev-client.mdx'),
-        makePage('eas-update/code-signing.mdx'),
-        makePage('eas-update/known-issues.mdx'),
-        makePage('eas-update/rollouts.mdx'),
-        makePage('eas-update/faq.mdx'),
-      ]),
-    ],
-    { expanded: true }
-  ),
-  makeSection(
-    'EAS Metadata',
-    [
-      makePage('eas/metadata/index.mdx'),
-      makePage('eas/metadata/getting-started.mdx'),
-      makePage('eas/metadata/config.mdx'),
-      makePage('eas/metadata/schema.mdx'),
-      makePage('eas/metadata/faq.mdx'),
-    ],
-    { expanded: true }
-  ),
 ];
 
 const learn = [
@@ -406,6 +384,28 @@ const versionsReference = VERSIONS.reduce(
       }),
       makeSection('Expo SDK', pagesFromDir(`versions/${version}/sdk`), { expanded: true }),
       makeSection(
+        'Expo Modules API',
+        [
+          makePage('modules/overview.mdx'),
+          makePage('modules/get-started.mdx'),
+          makePage('modules/native-module-tutorial.mdx'),
+          makePage('modules/native-view-tutorial.mdx'),
+          makePage('modules/config-plugin-and-native-module-tutorial.mdx'),
+          makePage('modules/existing-library.mdx'),
+          makePage('modules/module-api.mdx'),
+          makePage('modules/android-lifecycle-listeners.mdx'),
+          makePage('modules/appdelegate-subscribers.mdx'),
+          makePage('modules/autolinking.mdx'),
+          makePage('modules/module-config.mdx'),
+        ],
+        { expanded: true }
+      ),
+      makeSection('Technical specs', [
+        makePage('technical-specs/expo-updates-0.mdx'),
+        makePage('technical-specs/expo-updates-1-draft.mdx'),
+        makePage('technical-specs/expo-sfv-0.mdx'),
+      ]),
+      makeSection(
         'React Native',
         [
           make('page', {
@@ -420,12 +420,11 @@ const versionsReference = VERSIONS.reduce(
   {}
 );
 
-const reference = { ...versionsReference, latest: versionsReference[LATEST_VERSION] };
+const reference = { ...versionsReference, latest: versionsReference['latest'] };
 
 export default {
   home,
   general,
-  eas,
   learn,
   preview,
   archive,
@@ -433,7 +432,7 @@ export default {
   reference,
   generalDirectories,
   previewDirectories,
-  easDirectories,
+  referenceDirectories,
   archiveDirectories,
   homeDirectories,
   learnDirectories,

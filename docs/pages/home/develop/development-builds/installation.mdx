@@ -5,6 +5,7 @@ description: Learn what are the prerequisites and installation steps to create a
 ---
 
 import { Terminal } from '~/ui/components/Snippet';
+import { BoxLink } from '~/ui/components/BoxLink';
 
 In this guide, you'll learn what you need to install in your project to create a development build.
 
@@ -22,6 +23,10 @@ To initialize a development build, you need to install the `expo-dev-client` lib
 
 <Terminal cmd={['$ npx expo install expo-dev-client']} />
 
-## Next steps
+## Next step
 
-That's it! You're ready to create a development build. For more information, see the [Create a build](/home/develop/development-builds/create-a-build) guide.
+<BoxLink
+  title="Config plugins"
+  description="Learn about which are the Expo way of customizing the prebuild phase of a project."
+  href="/home/develop/development-builds/config-plugins"
+/>

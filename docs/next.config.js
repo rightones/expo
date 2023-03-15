@@ -119,7 +119,6 @@ export default {
       // this makes sure our starting and general guides are first, and API index last (in order from new to old)
       pathsPriority: [
         ...navigation.generalDirectories,
-        ...navigation.easDirectories,
         ...VERSIONS.map(version => `versions/${version}`),
       ],
       // Some of our pages are "hidden" and should not be added to the sitemap

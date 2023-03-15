@@ -72,7 +72,6 @@ const home = [
       [
         makePage('home/develop/development-builds/introduction.mdx'),
         makePage('home/develop/development-builds/installation.mdx'),
-        makePage('home/develop/development-builds/config-plugins.mdx'),
         makePage('home/develop/development-builds/create-a-build.mdx'),
         makePage('home/develop/development-builds/share-with-your-team.mdx'),
         makePage('home/develop/development-builds/parallel-installation.mdx'),
@@ -80,6 +79,7 @@ const home = [
       ],
       { expanded: true }
     ),
+    makePage('home/config-plugins.mdx'),
     makePage('home/authentication.mdx'),
     makePage('home/unit-testing.mdx'),
     makePage('home/errors-and-warnings.mdx'),

@@ -80,7 +80,15 @@ const home = [
       ],
       { expanded: true }
     ),
-    makePage('home/config-plugins.mdx'),
+    makeGroup(
+      'Config plugins',
+      [
+        makePage('home/config-plugins/introduction.mdx'),
+        makePage('home/config-plugins/plugins-and-mods.mdx'),
+        makePage('home/config-plugins/development-and-debugging.mdx'),
+      ],
+      { expanded: false }
+    ),
     makePage('home/authentication.mdx'),
     makePage('home/unit-testing.mdx'),
     makePage('home/errors-and-warnings.mdx'),

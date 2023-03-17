@@ -64,6 +64,7 @@ const home = [
         makePage('home/develop/user-interface/color-themes.mdx'),
         makePage('home/develop/user-interface/animation.mdx'),
         makePage('home/develop/user-interface/store-data.mdx'),
+        makePage('home/develop/user-interface/next-steps.mdx'),
       ],
       { expanded: true }
     ),
@@ -334,7 +335,7 @@ const learn = [
       makePage('ui-programming/using-svgs.mdx'),
       makePage('ui-programming/react-native-toast.mdx'),
       makePage('ui-programming/react-native-styling-buttons.mdx'),
-      makePage('guides/userinterface.mdx'),
+      makePage('ui-programming/user-interface-libraries.mdx'),
     ],
     { expanded: true }
   ),

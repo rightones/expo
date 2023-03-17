@@ -312,6 +312,7 @@ const learn = [
   makeSection(
     'Get Started',
     [
+      makePage('tutorial/introduction.mdx'),
       makePage('tutorial/create-your-first-app.mdx'),
       makePage('tutorial/build-a-screen.mdx'),
       makePage('tutorial/image-picker.mdx'),

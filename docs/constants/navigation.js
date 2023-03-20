@@ -90,10 +90,17 @@ const home = [
       ],
       { expanded: false }
     ),
+    makeGroup(
+      'Debugging',
+      [
+        makePage('home/errors-and-warnings.mdx'),
+        makePage('home/debugging/runtime-issue.mdx'),
+        makePage('home/debugging/tools.mdx'),
+      ],
+      { expanded: false }
+    ),
     makePage('home/authentication.mdx'),
     makePage('home/unit-testing.mdx'),
-    makePage('home/errors-and-warnings.mdx'),
-    makePage('home/debugging.mdx'),
   ]),
   makeSection('Deploy', [
     makePage('home/deploy/build-your-project.mdx'),

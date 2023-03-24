@@ -282,7 +282,6 @@ const general = [
     [
       makePage('eas/webhooks.mdx'),
       makePage('introduction/why-not-expo.mdx'),
-      makePage('introduction/faq.mdx'),
       makeSection('Integrations', [
         makePage('guides/using-firebase.mdx'),
         makePage('guides/using-sentry.mdx'),

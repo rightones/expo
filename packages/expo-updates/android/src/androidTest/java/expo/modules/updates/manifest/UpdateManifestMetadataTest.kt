@@ -6,6 +6,7 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
 import expo.modules.manifests.core.NewManifest
 import expo.modules.updates.UpdatesConfiguration
+import expo.modules.updates.codesigning.CertificateChain
 import expo.modules.updates.db.UpdatesDatabase
 import org.json.JSONException
 import org.json.JSONObject
@@ -14,6 +15,10 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.security.cert.CertificateException
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertNull
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class UpdateManifestMetadataTest {
@@ -83,6 +88,27 @@ class UpdateManifestMetadataTest {
     Assert.assertNotNull(actual)
     Assert.assertEquals(1, actual!!.length().toLong())
     Assert.assertEquals("rollout-1", actual.getString("branch-name"))
+  }
+
+  @Test
+  fun testExtraClientParams() {
+    val beforeSave = ManifestMetadata.getExtraClientParams(db, config)
+    assertNull(beforeSave)
+
+    ManifestMetadata.saveExtraClientParams(db, config, mapOf("wat" to "hello"))
+
+    val afterSave = ManifestMetadata.getExtraClientParams(db, config)
+    assertEquals(mapOf("wat" to "hello"), afterSave)
+  }
+
+  @Test
+  fun testExtraClientParamsValidation() {
+    assertFailsWith(
+      exceptionClass = IllegalArgumentException::class,
+      block = {
+        ManifestMetadata.saveExtraClientParams(db, config, mapOf("Hello" to "World"))
+      }
+    )
   }
 
   private fun createConfig(): UpdatesConfiguration {

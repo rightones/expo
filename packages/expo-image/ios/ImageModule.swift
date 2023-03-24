@@ -88,6 +88,10 @@ public final class ImageModule: Module {
       OnViewDidUpdateProps { view in
         view.reload()
       }
+
+      AsyncFunction("clearContent") { view in
+        view.sdImageView.image = nil
+      }
     }
 
     Function("prefetch") { (urls: [URL]) in

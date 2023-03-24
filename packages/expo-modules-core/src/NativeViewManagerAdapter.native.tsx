@@ -85,11 +85,12 @@ export function requireNativeViewManager<P>(viewName: string): React.ComponentTy
       // Temporarily each function is wrapped to pass the native tag as the argument.
       // In the future, native will automatically get the tag from `this` and then we can simply use
       // `Object.assign(NativeComponent.prototype, nativeViewPrototype)` instead.
-      for (const key of Object.getOwnPropertyNames(nativeViewPrototype)) {
-        NativeComponent.prototype[key] = function (...args) {
-          return nativeViewPrototype[key].call(this, this.nativeTag, ...args);
-        };
-      }
+      // for (const key of Object.getOwnPropertyNames(nativeViewPrototype)) {
+      //   NativeComponent.prototype[key] = function (...args) {
+      //     return nativeViewPrototype[key].call(this, this.nativeTag, ...args);
+      //   };
+      // }
+      Object.assign(NativeComponent.prototype, nativeViewPrototype);
     }
   } catch {
     // `requireNativeModule` may throw an error when the native module cannot be found.

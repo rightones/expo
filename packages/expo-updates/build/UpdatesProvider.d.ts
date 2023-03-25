@@ -1,9 +1,6 @@
 import type { Manifest } from './Updates.types';
 import type { UpdatesInfo, UpdatesProviderDownloadEvent } from './UpdatesProvider.types';
-export type UpdatesContextType = {
-    updatesInfo: UpdatesInfo;
-    setUpdatesInfo: (updates: UpdatesInfo) => void;
-};
+import { availableUpdateFromManifest } from './UpdatesProvider.utils';
 /**
  * Extracts any custom properties in the `extra` part of the Expo config.  The `eas` property
  * is excluded (reserved for Expo internal use).
@@ -105,5 +102,5 @@ declare const useUpdates: () => {
 };
 export type { UpdatesInfo, CurrentlyRunningInfo, AvailableUpdateInfo, UpdatesProviderDownloadEvent, } from './UpdatesProvider.types';
 export { UpdatesProviderDownloadEventType } from './UpdatesProvider.constants';
-export { UpdatesProvider, useUpdates, checkForUpdate, extraPropertiesFromManifest, downloadAndRunUpdate, downloadUpdate, runUpdate, };
+export { UpdatesProvider, useUpdates, availableUpdateFromManifest, checkForUpdate, extraPropertiesFromManifest, downloadAndRunUpdate, downloadUpdate, runUpdate, };
 //# sourceMappingURL=UpdatesProvider.d.ts.map

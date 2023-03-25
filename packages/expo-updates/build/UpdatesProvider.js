@@ -2,78 +2,7 @@ import React, { createContext, useContext, useState } from 'react';
 import * as Updates from './Updates';
 import { useUpdateEvents } from './UpdatesHooks';
 import { UpdatesProviderDownloadEventType, currentlyRunning } from './UpdatesProvider.constants';
-/////// Internal functions ////////
-// Promise wrapper for setTimeout()
-const delay = (timeout) => {
-    return new Promise((resolve) => {
-        setTimeout(resolve, timeout);
-    });
-};
-// Constructs the availableUpdate from the update manifest
-const availableUpdateFromManifest = (manifest) => {
-    return manifest
-        ? {
-            updateId: manifest?.id ? manifest?.id : null,
-            createdAt: manifest?.createdAt ? new Date(manifest?.createdAt) : null,
-            manifest,
-        }
-        : undefined;
-};
-// Constructs the UpdatesInfo from an event
-const updatesFromEvent = (event) => {
-    const lastCheckForUpdateTime = new Date();
-    if (event.type === Updates.UpdateEventType.NO_UPDATE_AVAILABLE) {
-        return {
-            currentlyRunning,
-            lastCheckForUpdateTime,
-        };
-    }
-    else if (event.type === Updates.UpdateEventType.UPDATE_AVAILABLE) {
-        return {
-            currentlyRunning,
-            availableUpdate: availableUpdateFromManifest(event.manifest),
-            lastCheckForUpdateTime,
-        };
-    }
-    else {
-        // event type === ERROR
-        return {
-            currentlyRunning,
-            error: new Error(event.message),
-            lastCheckForUpdateTime,
-        };
-    }
-};
-// Implementation of checkForUpdate
-const checkAndReturnNewUpdatesInfo = async () => {
-    let result;
-    try {
-        const checkResult = await Updates.checkForUpdateAsync();
-        const lastCheckForUpdateTime = new Date();
-        if (checkResult.isAvailable) {
-            result = {
-                currentlyRunning,
-                availableUpdate: availableUpdateFromManifest(checkResult.manifest),
-                lastCheckForUpdateTime,
-            };
-        }
-        else {
-            result = {
-                currentlyRunning,
-                lastCheckForUpdateTime,
-            };
-        }
-    }
-    catch (error) {
-        const lastCheckForUpdateTime = new Date();
-        result = {
-            currentlyRunning,
-            error: error?.message || 'Error occurred',
-            lastCheckForUpdateTime,
-        };
-    }
-    return result;
-};
+import { availableUpdateFromManifest, checkAndReturnNewUpdatesInfo, delay, updatesFromEvent, } from './UpdatesProvider.utils';
 // The context provided to the app
 const UpdatesContext = createContext({
     updatesInfo: {
@@ -236,5 +165,5 @@ const useUpdates = () => {
 // Export constants
 export { UpdatesProviderDownloadEventType } from './UpdatesProvider.constants';
 // Export methods
-export { UpdatesProvider, useUpdates, checkForUpdate, extraPropertiesFromManifest, downloadAndRunUpdate, downloadUpdate, runUpdate, };
+export { UpdatesProvider, useUpdates, availableUpdateFromManifest, checkForUpdate, extraPropertiesFromManifest, downloadAndRunUpdate, downloadUpdate, runUpdate, };
 //# sourceMappingURL=UpdatesProvider.js.map

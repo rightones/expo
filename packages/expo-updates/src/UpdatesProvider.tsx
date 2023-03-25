@@ -1,88 +1,21 @@
 import React, { createContext, useContext, useState } from 'react';
 
 import * as Updates from './Updates';
-import type { Manifest, UpdateEvent } from './Updates.types';
+import type { Manifest } from './Updates.types';
 import { useUpdateEvents } from './UpdatesHooks';
 import { UpdatesProviderDownloadEventType, currentlyRunning } from './UpdatesProvider.constants';
 import type { UpdatesInfo, UpdatesProviderDownloadEvent } from './UpdatesProvider.types';
+import {
+  availableUpdateFromManifest,
+  checkAndReturnNewUpdatesInfo,
+  delay,
+  updatesFromEvent,
+} from './UpdatesProvider.utils';
 
 // Context that includes getter and setter for the updates info
-export type UpdatesContextType = {
+type UpdatesContextType = {
   updatesInfo: UpdatesInfo;
   setUpdatesInfo: (updates: UpdatesInfo) => void;
-};
-
-/////// Internal functions ////////
-
-// Promise wrapper for setTimeout()
-const delay = (timeout: number) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, timeout);
-  });
-};
-
-// Constructs the availableUpdate from the update manifest
-const availableUpdateFromManifest = (manifest: Partial<Manifest> | undefined) => {
-  return manifest
-    ? {
-        updateId: manifest?.id ? manifest?.id : null,
-        createdAt: manifest?.createdAt ? new Date(manifest?.createdAt) : null,
-        manifest,
-      }
-    : undefined;
-};
-
-// Constructs the UpdatesInfo from an event
-const updatesFromEvent = (event: UpdateEvent): UpdatesInfo => {
-  const lastCheckForUpdateTime = new Date();
-  if (event.type === Updates.UpdateEventType.NO_UPDATE_AVAILABLE) {
-    return {
-      currentlyRunning,
-      lastCheckForUpdateTime,
-    };
-  } else if (event.type === Updates.UpdateEventType.UPDATE_AVAILABLE) {
-    return {
-      currentlyRunning,
-      availableUpdate: availableUpdateFromManifest(event.manifest),
-      lastCheckForUpdateTime,
-    };
-  } else {
-    // event type === ERROR
-    return {
-      currentlyRunning,
-      error: new Error(event.message),
-      lastCheckForUpdateTime,
-    };
-  }
-};
-
-// Implementation of checkForUpdate
-const checkAndReturnNewUpdatesInfo: () => Promise<UpdatesInfo> = async () => {
-  let result: UpdatesInfo;
-  try {
-    const checkResult = await Updates.checkForUpdateAsync();
-    const lastCheckForUpdateTime = new Date();
-    if (checkResult.isAvailable) {
-      result = {
-        currentlyRunning,
-        availableUpdate: availableUpdateFromManifest(checkResult.manifest),
-        lastCheckForUpdateTime,
-      };
-    } else {
-      result = {
-        currentlyRunning,
-        lastCheckForUpdateTime,
-      };
-    }
-  } catch (error: any) {
-    const lastCheckForUpdateTime = new Date();
-    result = {
-      currentlyRunning,
-      error: error?.message || 'Error occurred',
-      lastCheckForUpdateTime,
-    };
-  }
-  return result;
 };
 
 // The context provided to the app
@@ -285,6 +218,7 @@ export { UpdatesProviderDownloadEventType } from './UpdatesProvider.constants';
 export {
   UpdatesProvider,
   useUpdates,
+  availableUpdateFromManifest,
   checkForUpdate,
   extraPropertiesFromManifest,
   downloadAndRunUpdate,
